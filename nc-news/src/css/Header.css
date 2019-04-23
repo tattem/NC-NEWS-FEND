@@ -1,0 +1,25 @@
+.Header {
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
+  grid-template-areas: 'nav heading login';
+  text-align: center;
+  border: 2px solid rgba(0, 0, 255, 1);
+}
+
+.nav {
+  grid-area: nav;
+  border: 1px solid rgb(0, 200, 200);
+  background-color: rgba(0, 200, 200, 0.2);
+}
+.heading {
+  height: 100%;
+  margin: 0;
+  grid-area: heading;
+  border: 1px solid rgb(0, 87, 200);
+  background-color: rgba(0, 87, 200, 0.2);
+}
+.login {
+  grid-area: login;
+  border: 1px solid rgb(30, 0, 200);
+  background-color: rgba(30, 0, 200, 0.2);
+}

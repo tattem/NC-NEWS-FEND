@@ -1,0 +1,19 @@
+.Content {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  grid-template-areas: 'list details';
+  text-align: center;
+  border: 2px solid rgb(255, 60, 0);
+}
+
+.list {
+  grid-area: list;
+  border: 1px solid rgb(200, 80, 0);
+  background-color: rgba(200, 80, 0, 0.2);
+}
+
+.details {
+  grid-area: details;
+  border: 1px solid rgb(236, 155, 6);
+  background-color: rgba(236, 155, 6, 0.2);
+}
