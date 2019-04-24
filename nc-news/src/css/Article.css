@@ -1,0 +1,67 @@
+.Content {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 3fr 2fr;
+  grid-template-areas: 'list details';
+  text-align: center;
+  border: 2px solid rgb(255, 60, 0);
+}
+
+.article {
+  grid-area: list;
+  margin: 0;
+  border: 1px solid rgb(200, 80, 0);
+  background-color: rgba(200, 80, 0, 0.2);
+  overflow-y: scroll;
+}
+.comments {
+  height: 100vh;
+  overflow-y: scroll;
+  grid-area: details;
+  grid-template-rows: 7fr 1fr;
+  grid-template-areas: "comments" "addComment";
+}
+
+.containerComment {
+  grid-area: comments;
+  margin: 0;
+  border: 1px solid rgb(236, 155, 6);
+  background-color: rgba(236, 155, 6, 0.2);
+  display: grid;
+  grid-template-rows: 1fr 3fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+    'author . .'
+    'body body body'
+    'created . votes';
+}
+.body {
+  grid-area: body;
+  height: 90%;
+  margin: 2%;
+  font-size: 0.8em;
+  overflow-y: scroll;
+  text-align: justify;
+}
+.author {
+  grid-area: author;
+  margin-left: 5%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  font-size: 0.7em;
+  text-align: left;
+}
+.created {
+  grid-area: created;
+  font-size: 0.6em;
+  text-align: left;
+  margin-left: 5%;
+}
+.votes {
+  grid-area: votes;
+  font-size: 0.6em;
+}
+.addComment {
+    grid-area: comment;
+    font-size: 3em;
+  }
