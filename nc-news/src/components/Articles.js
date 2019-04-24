@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from '@reach/router';
 import '../css/Content.css';
-
 import * as api from './Api';
 
 class Articles extends Component {
@@ -31,6 +30,14 @@ class Articles extends Component {
   componentDidMount = async () => {
     await this.fetchArticles();
   };
+
+  componentDidUpdate = async (prevProps, prevState) => {
+      if(this.props.topic !== prevProps.topic) {
+        await this.fetchArticles();   
+
+      }
+  }
+  
 
   fetchArticles = async () => {
     try {
