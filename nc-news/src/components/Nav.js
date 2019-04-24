@@ -13,14 +13,14 @@ class Nav extends Component {
     return (
       <DropdownButton
         id="dropdown"
-        title={<img id="N" src={require('../images/N.png')} width="100%" />}
+        title={<img id="N" src={require('../images/N.png')} width="100%" alt="dropdown"/>}
         rootCloseEvent="click"
       >
         <Dropdown.Item>
           <Link to="/">Home</Link>
         </Dropdown.Item>
         {this.state.topics.map(topic => (
-          <Dropdown.Item>
+          <Dropdown.Item key={topic}>
             <Link to={`/${topic.slug}/articles`}>{topic.slug}</Link>
           </Dropdown.Item>
         ))}
@@ -29,10 +29,10 @@ class Nav extends Component {
   }
   componentDidMount = async () => {
     await this.fetchTopics();
+
   };
   componentDidUpdate = async (prevProps, prevState) => {
     // needs to be prev props. console log it to see.
-    console.log(this.props, 'the properties');
     //   if (this.props.topic !== prevProps) {
 
     //         await this.fetchTopics();
@@ -42,14 +42,12 @@ class Nav extends Component {
   fetchTopics = async () => {
     try {
       const topics = await api.getTopics();
-      console.log(topics, '<< get');
       this.setState(state => {
         return {
           topics: topics
         };
       });
     } catch (err) {}
-    console.log(this.state, '< state after ');
   };
 }
 
