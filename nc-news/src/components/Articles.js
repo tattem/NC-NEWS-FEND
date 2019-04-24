@@ -9,7 +9,6 @@ class Articles extends Component {
     topFive: [1, 2, 3, 4, 5, 6]
   };
   render() {
-    console.log(this.state, '<< state');
     return (
       <div className="Content">
         <ul className="list">
@@ -42,14 +41,12 @@ class Articles extends Component {
   fetchArticles = async () => {
     try {
       const articles = await api.getArticles(this.props.topic);
-      console.log(articles, '<< get');
       this.setState(state => {
         return {
           articles: articles
         };
       });
     } catch (err) {}
-    console.log(this.state, '< state after ');
   };
 }
 
