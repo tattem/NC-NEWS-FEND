@@ -8,12 +8,17 @@
 }
 .main {
   grid-area: main;
+  height:100hv;
   border: 2px solid rgb(200, 73, 0);
   background-color: rgba(200, 73, 0, 0.2);
 }
 
 .footer {
   grid-area: footer;
+  height:100hv;
   border: 2px solid rgb(90, 200, 0);
   background-color: rgba(90, 200, 0, 0.2);
+}
+li {
+  list-style-type: none;
 }
