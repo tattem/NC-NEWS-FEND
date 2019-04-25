@@ -1,5 +1,3 @@
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown';
 import '../css/Nav.css';
 import * as api from './Api';
 import React, { Component } from 'react';
@@ -7,36 +5,70 @@ import { Link } from '@reach/router';
 
 class Nav extends Component {
   state = {
-    topics: []
+    topics: [],
+    displayMenu: false
   };
+
   render() {
+    console.log('rendering');
     return (
-      <DropdownButton
-        id="dropdown"
-        title={<img id="N" src={require('../images/N.png')} width="100%" alt="dropdown"/>}
-        rootCloseEvent="click"
-      >
-        <Dropdown.Item>
-          <Link to="/">Home</Link>
-        </Dropdown.Item>
-        {this.state.topics.map(topic => (
-          <Dropdown.Item key={topic}>
-            <Link to={`/${topic.slug}/articles`}>{topic.slug}</Link>
-          </Dropdown.Item>
-        ))}
-      </DropdownButton>
+      <div className="dropdown" style={{ background: 'red', width: '200px' }}>
+        <div className="button" onClick={this.showDropdownMenu}>
+          <img
+            id="N"
+            src={require('../images/N.png')}
+            width="100%"
+            alt="dropdown"
+          />
+        </div>
+
+        {this.state.displayMenu ? (
+          <ul id="dropdownMenu">
+          <li id="dropdown-list">
+                <Link to={`/`}>Home</Link>
+              </li>
+            {this.state.topics.map(topic => (
+              <li id="dropdown-list">
+                <Link to={`/${topic.slug}/articles`}>{topic.slug}</Link>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </div>
+
     );
   }
   componentDidMount = async () => {
     await this.fetchTopics();
-
   };
-  componentDidUpdate = async (prevProps, prevState) => {
-    // needs to be prev props. console log it to see.
-    //   if (this.props.topic !== prevProps) {
 
-    //         await this.fetchTopics();
-    //         }
+  showDropdownMenu = event => {
+    event.preventDefault();
+    this.setState(
+      state => {
+        return {
+          topics: state.topics,
+          displayMenu: true
+        };
+      },
+      () => {
+        document.addEventListener('click', this.hideDropdownMenu);
+      }
+    );
+  };
+
+  hideDropdownMenu = () => {
+    this.setState(
+      state => {
+        return {
+          topics: state.topics,
+          displayMenu: false
+        };
+      },
+      () => {
+        document.removeEventListener('click', this.hideDropdownMenu);
+      }
+    );
   };
 
   fetchTopics = async () => {
@@ -44,11 +76,13 @@ class Nav extends Component {
       const topics = await api.getTopics();
       this.setState(state => {
         return {
-          topics: topics
+          topics: topics,
+          topic: this.props.topic
         };
       });
     } catch (err) {}
   };
+
 }
 
 export default Nav;
