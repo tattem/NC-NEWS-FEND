@@ -6,7 +6,9 @@ class Article extends Component {
   state = {
     article: {},
     comments: [],
-    vote_inc: 0
+    vote_inc: 0,
+    user: 'jessjelly',
+    input: ''
   };
   render() {
     const {
@@ -18,7 +20,6 @@ class Article extends Component {
       votes,
       comment_count
     } = this.state.article;
-    console.log(this.state, '< the state');
     return (
       <div className="Content">
         <div className="article">
@@ -52,13 +53,28 @@ class Article extends Component {
           <p>comments: {comment_count}</p>
         </div>
         <div className="comments">
-          <div className="addComment">place holder for add comments</div>
+          <form className="addComment" onSubmit={this.handleSubmit}>
+            <label id="label-comment">Have your say: </label>
+            <br />
+            <br />
+            <textarea
+              id="comment-text-area"
+              placeholder="Please leave a comment ..."
+              value={this.state.input}
+              onChange={this.handleChange}
+            />
+            <br />
+            <button id="comment-submit" type="submit">
+              Add comment
+            </button>
+          </form>
+
           {this.state.comments.map(comment => (
             <div key={comment.comment_id} className="containerComment">
               <p className="author">{comment.author}</p>
               <p className="body">{comment.body}</p>
               <p className="created">
-                {Date(comment.created_at).slice(0, -34)}
+                {new Date(comment.created_at).toString().slice(0, -34)}
               </p>
               <p className="votes">
                 <button
@@ -103,7 +119,21 @@ class Article extends Component {
   componentDidMount = async () => {
     await this.fetchArticleContent();
   };
-
+  handleChange = event => {
+    const inputValue = event.target.value;
+    this.setState(() => {
+      return {
+        input: inputValue
+      };
+    });
+  };
+  handleSubmit = async e => {
+    e.preventDefault();
+    const { user, input } = this.state;
+    const id = this.props.article;
+    await api.postComment(user, input, id);
+    await this.fetchArticleContent();
+  };
   handleArticleClick = (inc, id, comp) => {
     this.setState(state => {
       return {
@@ -133,7 +163,8 @@ class Article extends Component {
       this.setState(state => {
         return {
           article: article,
-          comments: articleComments
+          comments: articleComments,
+          input: ''
         };
       });
     } catch (err) {}

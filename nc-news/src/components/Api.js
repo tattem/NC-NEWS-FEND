@@ -25,6 +25,8 @@ export const getUser = async (username) => {
 
 export const updateVotes = async (inc, id, comp) => {
     const {data} = await axios.patch(`https://nc-news-mdog.herokuapp.com/api/${comp}s/${id}`, {inc_votes: inc})
-    console.log(data[comp], 'api')
     return data[comp]
+}
+export const postComment = async (user, input, id) => {
+    await axios.post(`https://nc-news-mdog.herokuapp.com/api/articles/${id}/comments`, {username: user, body: input})
 }

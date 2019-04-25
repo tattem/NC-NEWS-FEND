@@ -62,5 +62,22 @@
 }
 .addComment {
     grid-area: comment;
-    font-size: 3em;
+    font-size: 1em;
   }
+
+#label-comment{
+    float: left;
+    margin-left: 1vw;
+    margin-top: 1vh;
+}
+
+#comment-text-area {
+    height:15vh;
+    width:40vh;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+
+#comment-submit {
+    margin-bottom: 1vh;
+}

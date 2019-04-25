@@ -10,6 +10,9 @@ class Articles extends Component {
   };
   render() {
     return (
+        <div>
+            {this.props.topic ? <h3>Articles on {this.props.topic}</h3> : <h3>All Articles</h3>}
+        
       <div className="Content">
         <ul className="list">
           {this.state.articles.map(article => (
@@ -23,6 +26,7 @@ class Articles extends Component {
             <li key={article}>{article}</li>
           ))}
         </ul>
+      </div>
       </div>
     );
   }

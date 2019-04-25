@@ -28,7 +28,7 @@ class App extends Component {
           </Router>
           <Footer />
         </div>
-      // </Auth>
+      /* </Auth> */
     );
   }
   login = async username => {
