@@ -1,6 +1,5 @@
 .Content {
   display: grid;
-  height: 100vh;
   grid-template-columns: 3fr 2fr;
   grid-template-areas: 'list details';
   text-align: center;
