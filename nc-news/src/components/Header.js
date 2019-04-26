@@ -9,7 +9,9 @@ class Header extends Component {
     return (
       <div className="Header">
       <Nav />
-      <h1 className="heading">This is a header</h1>
+      <div className="heading">
+        <p>NC-News</p>
+      </div>
       {/* add user as ternary here for login */}
       {this.props.user ? <p className="login" id="logged">Welcome {this.props.user}!</p> : <Login className="login" login={this.props.login}/>}
     </div>
