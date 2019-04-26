@@ -7,12 +7,12 @@ class Article extends Component {
     article: {},
     comments: [],
     vote_inc: 0,
-    user: 'jessjelly',
     input: ''
   };
   render() {
-    console.log(this.props.user);
-    const addCommentStatus = this.props.user ? 'addComment' : 'loginComment';
+    const { vote_inc } = this.state;
+    const { user } = this.props;
+    const addCommentStatus = user ? 'addComment' : 'loginComment';
     const {
       title,
       topic,
@@ -35,18 +35,18 @@ class Article extends Component {
               onClick={() => {
                 return this.handleArticleClick(1, article_id, 'article');
               }}
-              disabled={this.state.vote_inc === 1}
+              disabled={vote_inc === 1}
             >
               {' '}
               Up{' '}
             </button>{' '}
-            votes: {votes + this.state.vote_inc}{' '}
+            votes: {votes + vote_inc}{' '}
             <button
               id="down"
               onClick={() => {
                 return this.handleArticleClick(-1, article_id, 'article');
               }}
-              disabled={this.state.vote_inc === -1}
+              disabled={vote_inc === -1}
             >
               {' '}
               Down{' '}
@@ -56,12 +56,12 @@ class Article extends Component {
         </div>
         <div className="comments">
           <div>
-              {!this.props.user && (
-                <h3 id="login-label-comment">
-                  Please login to leave comments and vote for your favourite
-                  articles and comments
-                </h3>
-              )}
+            {!user && (
+              <h3 id="login-label-comment">
+                Please login to leave comments and vote for your favourite
+                articles and comments
+              </h3>
+            )}
             <form className={addCommentStatus} onSubmit={this.handleSubmit}>
               <label id="label-comment">Have your say: </label>
               <br />
@@ -104,7 +104,7 @@ class Article extends Component {
                 votes:{' '}
                 {this.state[comment.comment_id]
                   ? comment.votes + this.state[comment.comment_id]
-                  : comment.votes + 0}{' '}
+                  : comment.votes}{' '}
                 <button
                   id="down"
                   onClick={() => {
@@ -139,30 +139,34 @@ class Article extends Component {
   };
   handleSubmit = async e => {
     e.preventDefault();
-    const { user, input } = this.state;
+    const { input } = this.state;
     const id = this.props.article;
-    await api.postComment(user, input, id);
+    await api.postComment(this.props.user, input, id);
     await this.fetchArticleContent();
   };
   handleArticleClick = (inc, id, comp) => {
-    this.setState(state => {
-      return {
-        article: state.article,
-        comments: state.comments,
-        vote_inc: state.vote_inc + inc
-      };
-    });
-    api.updateVotes(inc, id, comp);
+    if (!this.props.user) {
+      return alert('Please login to submit your vote!');
+    } else {
+      this.setState(state => {
+        return {
+          vote_inc: state.vote_inc + inc
+        };
+      });
+      api.updateVotes(inc, id, comp);
+    }
   };
   handleCommentClick = (inc, id, comp) => {
-    this.setState(state => {
-      return {
-        article: state.article,
-        comments: state.comments,
-        [id]: state[id] ? state[id] + inc : inc
-      };
-    });
-    api.updateVotes(inc, id, comp);
+    if (!this.props.user) {
+      return alert('Please login to submit your vote!');
+    } else {
+      this.setState(state => {
+        return {
+          [id]: state[id] ? state[id] + inc : inc
+        };
+      });
+      api.updateVotes(inc, id, comp);
+    }
   };
 
   fetchArticleContent = async () => {
