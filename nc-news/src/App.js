@@ -16,27 +16,25 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.state.user, '<< user')
+    console.log(this.state.user, '<< user app')
     return (
-      // <Auth user={this.state.user} login={this.login}>
         <div className="App">
-          <Header />
+          <Header user={this.state.user} login={this.login}/>
           <Router className="main">
             <Articles path="/" />
             <Articles path="/:topic/articles" />
-            <Article path="/:article" />
+            <Article user={this.state.user} path="/:article" />
           </Router>
           <Footer />
         </div>
-      /* </Auth> */
     );
   }
   login = async username => {
     const user = await api.getUser(username)
-    console.log(user, '<< ran user')
+    console.log(user.username, '<< ran user')
     this.setState(()=> {
       return {
-        user: user
+        user: user.username
       }
     })
   }

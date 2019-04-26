@@ -11,6 +11,8 @@ class Article extends Component {
     input: ''
   };
   render() {
+    console.log(this.props.user);
+    const addCommentStatus = this.props.user ? 'addComment' : 'loginComment';
     const {
       title,
       topic,
@@ -53,21 +55,29 @@ class Article extends Component {
           <p>comments: {comment_count}</p>
         </div>
         <div className="comments">
-          <form className="addComment" onSubmit={this.handleSubmit}>
-            <label id="label-comment">Have your say: </label>
-            <br />
-            <br />
-            <textarea
-              id="comment-text-area"
-              placeholder="Please leave a comment ..."
-              value={this.state.input}
-              onChange={this.handleChange}
-            />
-            <br />
-            <button id="comment-submit" type="submit">
-              Add comment
-            </button>
-          </form>
+          <div>
+              {!this.props.user && (
+                <h3 id="login-label-comment">
+                  Please login to leave comments and vote for your favourite
+                  articles and comments
+                </h3>
+              )}
+            <form className={addCommentStatus} onSubmit={this.handleSubmit}>
+              <label id="label-comment">Have your say: </label>
+              <br />
+              <br />
+              <textarea
+                id="comment-text-area"
+                placeholder="Please leave a comment ..."
+                value={this.state.input}
+                onChange={this.handleChange}
+              />
+              <br />
+              <button id="comment-submit" type="submit">
+                Add comment
+              </button>
+            </form>
+          </div>
 
           {this.state.comments.map(comment => (
             <div key={comment.comment_id} className="containerComment">

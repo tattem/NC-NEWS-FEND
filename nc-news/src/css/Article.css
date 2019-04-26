@@ -60,9 +60,21 @@
   grid-area: votes;
   font-size: 0.6em;
 }
-.addComment {
+
+.addComment-container{
     grid-area: comment;
+    position: relative;
+}
+.login-label-comment{
+    z-index:2;
+}
+
+.addComment {
     font-size: 1em;
+  }
+.loginComment {
+    font-size: 1em;
+    opacity: 0.2
   }
 
 #label-comment{

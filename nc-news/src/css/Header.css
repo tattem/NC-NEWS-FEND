@@ -1,6 +1,6 @@
 .Header {
   display: grid;
-  grid-template-columns: 0.5fr 12fr 1fr;
+  grid-template-columns: 1fr 5fr 1.5fr;
   grid-template-areas: 'nav heading login';
   text-align: center;
   border: 2px solid rgba(0, 0, 255, 1);
@@ -20,6 +20,7 @@
 }
 .login {
   grid-area: login;
+  width:100%;
   border: 1px solid rgb(30, 0, 200);
   background-color: rgba(30, 0, 200, 0.2);
   margin:0;
