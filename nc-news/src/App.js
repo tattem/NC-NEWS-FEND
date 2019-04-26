@@ -9,7 +9,6 @@ import './App.css';
 import Auth from './components/Auth';
 import * as api from './components/Api';
 
-
 class App extends Component {
   state = {
     user: null,
@@ -17,29 +16,29 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.state.user, '<< user app')
+    console.log(this.state.user, '<< user app');
     return (
-        <div className="App">
-          <Header user={this.state.user} login={this.login}/>
-          <Router className="main">
-            <Articles path="/" />
-            <Articles path="/:topic/articles" />
-            <Article user={this.state.user} path="/:article" />
-          </Router>
-          <Footer />
+      <div className="App">
+        <Header user={this.state.user} login={this.login} />
+        <Router className="main">
+          <Articles path="/" />
+          <Articles path="/:topic/articles" />
+          <Article user={this.state.user} path="/:article" />
           <Error default />
-        </div>
+        </Router>
+        <Footer />
+      </div>
     );
   }
   login = async username => {
-    const user = await api.getUser(username)
-    console.log(user.username, '<< ran user')
-    this.setState(()=> {
+    const user = await api.getUser(username);
+    console.log(user.username, '<< ran user');
+    this.setState(() => {
       return {
         user: user.username
-      }
-    })
-  }
+      };
+    });
+  };
 }
 
 export default App;

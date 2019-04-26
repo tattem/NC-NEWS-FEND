@@ -86,6 +86,13 @@ class Article extends Component {
               <p className="created">
                 {new Date(comment.created_at).toString().slice(0, -34)}
               </p>
+              {user === comment.author && (
+                <p className="deleteComment">
+                  <button onClick={() => this.handleDelete(comment.comment_id)}>
+                    x
+                  </button>
+                </p>
+              )}
               <p className="votes">
                 <button
                   id="up"
@@ -143,6 +150,17 @@ class Article extends Component {
     const id = this.props.article;
     await api.postComment(this.props.user, input, id);
     await this.fetchArticleContent();
+  };
+  handleDelete = id => {
+    api.deleteComment(id);
+    const comments = this.state.comments.filter(
+      comment => comment.comment_id !== id
+    );
+    this.setState(() => {
+      return {
+        comments
+      };
+    });
   };
   handleArticleClick = (inc, id, comp) => {
     if (!this.props.user) {

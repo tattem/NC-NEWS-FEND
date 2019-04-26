@@ -30,3 +30,6 @@ export const updateVotes = async (inc, id, comp) => {
 export const postComment = async (user, input, id) => {
     await axios.post(`https://nc-news-mdog.herokuapp.com/api/articles/${id}/comments`, {username: user, body: input})
 }
+export const deleteComment = async (id) => {
+    await axios.delete(`https://nc-news-mdog.herokuapp.com/api/comments/${id}`)
+}
