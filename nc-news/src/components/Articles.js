@@ -10,23 +10,27 @@ class Articles extends Component {
   };
   render() {
     return (
-        <div>
-            {this.props.topic ? <h3>Articles on {this.props.topic}</h3> : <h3>All Articles</h3>}
-        
-      <div className="Content">
-        <ul className="list">
-          {this.state.articles.map(article => (
-            <li key={article.article_id}>
-              <Link to={`/${article.article_id}`}>{article.title}</Link>
-            </li>
-          ))}
-        </ul>
-        <ul className="details">
-          {this.state.topFive.map(article => (
-            <li key={article}>{article}</li>
-          ))}
-        </ul>
-      </div>
+      <div>
+        {this.props.topic ? (
+          <h3>Articles on {this.props.topic}</h3>
+        ) : (
+          <h3>All Articles</h3>
+        )}
+
+        <div className="Content">
+          <ul className="list">
+            {this.state.articles.map(article => (
+              <li key={article.article_id}>
+                <Link to={`/${article.article_id}`}>{article.title}</Link>
+              </li>
+            ))}
+          </ul>
+          <ul className="details">
+            {this.state.topFive.map(article => (
+              <li key={article}>{article}</li>
+            ))}
+          </ul>
+        </div>
       </div>
     );
   }
@@ -35,21 +39,24 @@ class Articles extends Component {
   };
 
   componentDidUpdate = async (prevProps, prevState) => {
-      if(this.props.topic !== prevProps.topic) {
-        await this.fetchArticles();   
-
-      }
-  }
-  
+    if (this.props.topic !== prevProps.topic) {
+      await this.fetchArticles();
+    }
+  };
 
   fetchArticles = async () => {
     try {
       const articles = await api.getArticles(this.props.topic);
-      this.setState(state => {
-        return {
-          articles: articles
-        };
-      });
+      if (articles.length) {
+        this.setState(state => {
+          return {
+            articles: articles
+          };
+        });
+      } else {
+        const { navigate } = this.props;
+        navigate('/errors/404', { replace: true });
+      }
     } catch (err) {}
   };
 }

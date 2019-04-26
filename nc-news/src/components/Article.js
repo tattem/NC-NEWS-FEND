@@ -73,7 +73,7 @@ class Article extends Component {
                 onChange={this.handleChange}
               />
               <br />
-              <button id="comment-submit" type="submit">
+              <button id="comment-submit" type="submit" disabled={!user}>
                 Add comment
               </button>
             </form>
@@ -181,7 +181,10 @@ class Article extends Component {
           input: ''
         };
       });
-    } catch (err) {}
+    } catch (err) {
+      const { navigate } = this.props;
+      navigate('/errors/404', { replace: true });
+    }
   };
 }
 export default Article;

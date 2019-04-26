@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Articles from './components/Articles';
 import Article from './components/Article';
 import Footer from './components/Footer';
+import Error from './components/Error';
 import './App.css';
 import Auth from './components/Auth';
 import * as api from './components/Api';
@@ -26,6 +27,7 @@ class App extends Component {
             <Article user={this.state.user} path="/:article" />
           </Router>
           <Footer />
+          <Error default />
         </div>
     );
   }
