@@ -12,17 +12,35 @@ class Articles extends Component {
     return (
       <div>
         {this.props.topic ? (
-          <h3>Articles on {this.props.topic}</h3>
+          <div>
+            <h3>Articles on {this.props.topic}</h3>
+            <p>
+              sort by: <button>comments</button>
+              <button>likes</button>
+            </p>
+          </div>
         ) : (
-          <h3>All Articles</h3>
+          <div className="title-container">
+            <h3>All Articles</h3>
+            <p>
+              sort by: <button>comments</button>
+              <button>likes</button>
+            </p>
+          </div>
         )}
 
         <div className="Content">
           <ul className="list">
             {this.state.articles.map(article => (
-              <li key={article.article_id}>
-                <Link to={`/${article.article_id}`}>{article.title}</Link>
-              </li>
+              <div>
+                <li key={article.article_id}>
+                  <h2>{article.title}</h2>
+                  <p>Author: {article.author}</p>
+                  <p>
+                    <Link to={`/${article.article_id}`}> read more...</Link>
+                  </p>
+                </li>
+              </div>
             ))}
           </ul>
           <ul className="details">

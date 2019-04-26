@@ -6,12 +6,33 @@
   text-align: center;
   border: 2px solid rgb(255, 60, 0);
 }
+.container h3 {
+  margin-top:0.5%;
+}
 
 .list {
   grid-area: list;
+  height:76vh;
+  overflow-y: scroll;
   margin: 0;
   border: 1px solid rgb(200, 80, 0);
   background-color: rgba(200, 80, 0, 0.2);
+}
+
+
+.list li {
+  border: 1px solid rgb(200, 80, 0);
+  height: 15vh;
+  font-size: 0.7em;
+  margin: 2%;
+}
+.list a {
+  margin-top:3px;
+}
+
+.list a:link {
+  text-decoration: none;
+
 }
 
 .details {
