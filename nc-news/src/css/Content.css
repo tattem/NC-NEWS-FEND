@@ -22,12 +22,15 @@
 
 .list li {
   border: 1px solid rgb(200, 80, 0);
-  height: 15vh;
+  height: 100%;
   font-size: 0.7em;
   margin: 2%;
 }
 .list a {
   margin-top:3px;
+}
+.list p {
+  font-size: 0.8em;
 }
 
 .list a:link {

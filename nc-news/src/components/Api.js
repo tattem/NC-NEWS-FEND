@@ -1,35 +1,57 @@
-import axios from 'axios'
+import axios from 'axios';
 
 export const getArticles = async (topic, sort) => {
-    const query = topic ? `?topic=${topic}` : ''
-    const {data} = await axios.get(`https://nc-news-mdog.herokuapp.com/api/articles${query}`)
-    return data.articles
-}
+  const query = topic
+    ? sort
+      ? `?topic=${topic}&sort_by=${sort}`
+      : `?topic=${topic}`
+    : sort
+    ? `?sort_by=${sort}`
+    : '';
+  const { data } = await axios.get(
+    `https://nc-news-mdog.herokuapp.com/api/articles${query}`
+  );
+  return data.articles;
+};
 export const getTopics = async () => {
-    const {data} = await axios.get("https://nc-news-mdog.herokuapp.com/api/topics")
-    return data.topics
-}
-export const getArticle = async (article_id) => {
-    const {data} = await axios.get(`https://nc-news-mdog.herokuapp.com/api/articles/${article_id}`)
-    return data.article
-}
-export const getArticleComments = async (article_id) => {
-    const {data} = await axios.get(`https://nc-news-mdog.herokuapp.com/api/articles/${article_id}/comments`)
-    return data.comments
-}
+  const { data } = await axios.get(
+    'https://nc-news-mdog.herokuapp.com/api/topics'
+  );
+  return data.topics;
+};
+export const getArticle = async article_id => {
+  const { data } = await axios.get(
+    `https://nc-news-mdog.herokuapp.com/api/articles/${article_id}`
+  );
+  return data.article;
+};
+export const getArticleComments = async article_id => {
+  const { data } = await axios.get(
+    `https://nc-news-mdog.herokuapp.com/api/articles/${article_id}/comments`
+  );
+  return data.comments;
+};
 
-export const getUser = async (username) => {
-    const {data} = await axios.get(`https://nc-news-mdog.herokuapp.com/api/users/${username}`)
-    return data.user
-}
+export const getUser = async username => {
+  const { data } = await axios.get(
+    `https://nc-news-mdog.herokuapp.com/api/users/${username}`
+  );
+  return data.user;
+};
 
 export const updateVotes = async (inc, id, comp) => {
-    const {data} = await axios.patch(`https://nc-news-mdog.herokuapp.com/api/${comp}s/${id}`, {inc_votes: inc})
-    return data[comp]
-}
+  const { data } = await axios.patch(
+    `https://nc-news-mdog.herokuapp.com/api/${comp}s/${id}`,
+    { inc_votes: inc }
+  );
+  return data[comp];
+};
 export const postComment = async (user, input, id) => {
-    await axios.post(`https://nc-news-mdog.herokuapp.com/api/articles/${id}/comments`, {username: user, body: input})
-}
-export const deleteComment = async (id) => {
-    await axios.delete(`https://nc-news-mdog.herokuapp.com/api/comments/${id}`)
-}
+  await axios.post(
+    `https://nc-news-mdog.herokuapp.com/api/articles/${id}/comments`,
+    { username: user, body: input }
+  );
+};
+export const deleteComment = async id => {
+  await axios.delete(`https://nc-news-mdog.herokuapp.com/api/comments/${id}`);
+};
