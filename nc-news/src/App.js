@@ -6,7 +6,6 @@ import Article from './components/Article';
 import Footer from './components/Footer';
 import Error from './components/Error';
 import './App.css';
-import Auth from './components/Auth';
 import * as api from './components/Api';
 
 class App extends Component {
@@ -16,10 +15,9 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.state.user, '<< user app');
     return (
       <div className="App">
-        <Header user={this.state.user} login={this.login} />
+        <Header user={this.state.user} login={this.login} logout={this.logout}/>
         <Router className="main">
           <Articles path="/" />
           <Articles path="/:topic/articles" />
@@ -32,13 +30,19 @@ class App extends Component {
   }
   login = async username => {
     const user = await api.getUser(username);
-    console.log(user.username, '<< ran user');
     this.setState(() => {
       return {
         user: user.username
       };
     });
   };
+  logout = () => {
+    this.setState(() => {
+      return {
+        user: null
+      }
+    })
+  }
 }
 
 export default App;

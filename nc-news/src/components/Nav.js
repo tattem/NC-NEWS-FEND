@@ -10,7 +10,6 @@ class Nav extends Component {
   };
 
   render() {
-    console.log('rendering');
     return (
       <div className="dropdown" style={{ background: 'red', width: '200px' }}>
         <div className="button" onClick={this.showDropdownMenu}>

@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 
 class Header extends Component {
   render() {
-    console.log(this.props.user, '<< user header')
     return (
       <div className="Header">
       <Nav />
@@ -13,7 +12,7 @@ class Header extends Component {
         <p>NC-News</p>
       </div>
       {/* add user as ternary here for login */}
-      {this.props.user ? <p className="login" id="logged">Welcome {this.props.user}!</p> : <Login className="login" login={this.props.login}/>}
+      {this.props.user ? <div><p className="login" id="logged">Welcome {this.props.user}!</p><p><button onClick={this.props.logout}>Log out</button></p></div> : <Login className="login" login={this.props.login}/>}
     </div>
     );
   }

@@ -6,7 +6,8 @@ import * as api from './Api';
 class Articles extends Component {
   state = {
     articles: [],
-    topFive: [1, 2, 3, 4, 5, 6]
+    topFive: [1, 2, 3, 4, 5, 6],
+    sortby: ''
   };
   render() {
     return (
@@ -23,7 +24,7 @@ class Articles extends Component {
           <div className="title-container">
             <h3>All Articles</h3>
             <p>
-              sort by: <button>comments</button>
+              sort by: <button onClick={()=> this.sortClicked("comment_count")}>comments</button>
               <button>likes</button>
             </p>
           </div>
@@ -52,19 +53,30 @@ class Articles extends Component {
       </div>
     );
   }
-  componentDidMount = async () => {
-    await this.fetchArticles();
+  componentDidMount = () => {
+    this.fetchArticles();
   };
 
-  componentDidUpdate = async (prevProps, prevState) => {
+  componentDidUpdate = (prevProps, prevState) => {
     if (this.props.topic !== prevProps.topic) {
-      await this.fetchArticles();
+        this.fetchArticles();
+    } else if (this.state.sortBy !== prevState.sortBy) {
+        // next step is to build a query in the get articles api that handles sort by
+        this.fetchArticles();
     }
   };
 
+  sortClicked = sort => {
+    this.setState(() => {
+        return {
+          sortBy: sort
+        };
+      });
+  }
+
   fetchArticles = async () => {
     try {
-      const articles = await api.getArticles(this.props.topic);
+      const articles = await api.getArticles(this.props.topic, this.state.sortBy);
       if (articles.length) {
         this.setState(state => {
           return {
