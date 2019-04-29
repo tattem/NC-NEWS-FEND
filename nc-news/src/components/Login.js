@@ -7,7 +7,6 @@ class Login extends Component {
   render() {
     return (
       <form className="login" onSubmit={this.handleSubmit}>
-        <label>Log in</label>
         <input type="text" placeholder="username" value={this.state.input} onChange={this.handleChange} />
         <button type="submit"> Log in </button>
       </form>

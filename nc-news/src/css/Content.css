@@ -4,30 +4,27 @@
   grid-template-columns: 3fr 2fr;
   grid-template-areas: 'list details';
   text-align: center;
-  border: 2px solid rgb(255, 60, 0);
 }
 .container h3 {
-  margin-top:0.5%;
+  margin-top: 0.5%;
 }
 
 .list {
   grid-area: list;
-  height:76vh;
+  height: 84vh;
   overflow-y: scroll;
   margin: 0;
-  border: 1px solid rgb(200, 80, 0);
-  background-color: rgba(200, 80, 0, 0.2);
+  padding: 0;
 }
-
 
 .list li {
   border: 1px solid rgb(200, 80, 0);
-  height: 100%;
+  background-color: rgba(200, 80, 0, 0.2);
   font-size: 0.7em;
   margin: 2%;
 }
 .list a {
-  margin-top:3px;
+  margin-top: 3px;
 }
 .list p {
   font-size: 0.8em;
@@ -35,12 +32,49 @@
 
 .list a:link {
   text-decoration: none;
-
 }
 
 .details {
   grid-area: details;
+  padding-left: 3%;
+  padding-right: 3%;
+  height: 77.7vh;
+  overflow-y: scroll;
   margin: 0;
-  border: 1px solid rgb(236, 155, 6);
-  background-color: rgba(236, 155, 6, 0.2);
+}
+
+.details li {
+  border: 1px solid rgb(200, 80, 0);
+  background-color: rgba(200, 80, 0, 0.2);
+
+  font-size: 0.7em;
+  margin: 2%;
+  list-style-type: decimal;
+}
+
+.details a {
+  margin-top: 3px;
+}
+.details p {
+  font-size: 0.8em;
+}
+
+.details a:link {
+  text-decoration: none;
+}
+
+.details h2 {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.hotBody {
+  text-align: justify;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.commentsHeading {
+  font-size: 1.5em;
+  margin: 2%;
 }

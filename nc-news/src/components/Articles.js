@@ -6,10 +6,14 @@ import * as api from './Api';
 class Articles extends Component {
   state = {
     articles: [],
-    topFive: [1, 2, 3, 4, 5, 6],
-    sortby: null
+    topFive: [],
+    sortby: null,
+    loading: true
   };
   render() {
+    if (this.state.loading) {
+      return <h2>loading...</h2>;
+    }
     return (
       <div>
         {this.props.topic ? (
@@ -48,11 +52,24 @@ class Articles extends Component {
               </div>
             ))}
           </ul>
-          <ul className="details">
-            {this.state.topFive.map(article => (
-              <li key={article}>{article}</li>
-            ))}
-          </ul>
+          <div className="comment-container">
+            <h3 className="commentsHeading">The Hot 5</h3>
+
+            <ol className="details">
+              {this.state.topFive.map(article => (
+                <li key={'x' + article.article_id}>
+                  <h2>{article.title}</h2>
+                  <p>Author: {article.author}</p>
+                  <p>{new Date(article.created_at).toString().slice(0, -34)}</p>
+                  <p>Votes: {article.votes}</p>
+                  <p className="hotBody">
+                    {article.body.slice(0, 200)}
+                    <Link to={`/${article.article_id}`}> read more...</Link>
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </div>
     );
@@ -65,7 +82,8 @@ class Articles extends Component {
     if (this.props.topic !== prevProps.topic) {
       this.setState(() => {
         return {
-          sortBy: null
+          sortBy: null,
+          loading: true
         };
       });
       this.fetchArticles();
@@ -89,10 +107,14 @@ class Articles extends Component {
         this.props.topic,
         this.state.sortBy
       );
+      const topFive = await api.getArticles(this.props.topic, 'comment_count');
+
       if (articles.length) {
         this.setState(state => {
           return {
-            articles: articles
+            articles: articles,
+            topFive: topFive.slice(0, 5),
+            loading: false
           };
         });
       } else {

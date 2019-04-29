@@ -5,6 +5,7 @@
   text-align: center;
   height: 100vh;
   width: 100vw;
+  /* background-color: red */
 }
 .Header{
   grid-area: header;
@@ -12,7 +13,6 @@
 .main {
   grid-area: main;
   height:100hv;
-  border: 2px solid rgb(200, 73, 0);
   background-color: rgba(200, 73, 0, 0.2);
 }
 
@@ -24,4 +24,20 @@
 }
 li {
   list-style-type: none;
+}
+
+h2 {
+  font-family: 'Abel', sans-serif;
+}
+h3 {
+  font-family: 'Abel', sans-serif;
+}
+
+p {
+  font-family: 'EB Garamond', serif;
+}
+
+button:hover {
+  cursor: pointer;
+  box-shadow: 1px 1px 3px
 }

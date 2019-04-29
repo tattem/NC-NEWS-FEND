@@ -12,14 +12,15 @@ class Nav extends Component {
   render() {
     return (
       <div className="dropdown" style={{ background: 'red', width: '200px' }}>
-        <div className="button" onClick={this.showDropdownMenu}>
+        {/* <div className="button" onClick={this.showDropdownMenu}> */}
           <img
             id="N"
             src={require('../images/N.png')}
             width="100%"
             alt="dropdown"
+            onClick={this.showDropdownMenu}
           />
-        </div>
+        {/* </div> */}
 
         {this.state.displayMenu ? (
           <ul id="dropdownMenu">

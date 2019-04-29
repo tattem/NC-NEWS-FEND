@@ -7,7 +7,8 @@ class Article extends Component {
     article: {},
     comments: [],
     vote_inc: 0,
-    input: ''
+    input: '',
+    loading: true
   };
   render() {
     const { vote_inc } = this.state;
@@ -22,13 +23,18 @@ class Article extends Component {
       votes,
       comment_count
     } = this.state.article;
+    if(this.state.loading){
+        return (
+            <h2>loading...</h2>
+        )
+    }
     return (
       <div className="Content">
         <div className="article">
           <h3>{title}</h3>
           <p>topic: {topic}</p>
-          <p>body: {body}</p>
-          <p>author: {author}</p>
+          <p className="article-body">{body}</p>
+          <p>{author}</p>
           <p>
             <button
               id="up"
@@ -71,6 +77,7 @@ class Article extends Component {
                 placeholder="Please leave a comment ..."
                 value={this.state.input}
                 onChange={this.handleChange}
+                required
               />
               <br />
               <button id="comment-submit" type="submit" disabled={!user}>
@@ -196,7 +203,8 @@ class Article extends Component {
         return {
           article: article,
           comments: articleComments,
-          input: ''
+          input: '',
+          loading: false
         };
       });
     } catch (err) {

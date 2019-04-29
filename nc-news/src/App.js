@@ -17,7 +17,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header user={this.state.user} login={this.login} logout={this.logout}/>
+        <Header user={this.state.user} failedUser={this.state.loginFailed} login={this.login} logout={this.logout}/>
         <Router className="main">
           <Articles path="/" />
           <Articles path="/:topic/articles" />
@@ -29,12 +29,22 @@ class App extends Component {
     );
   }
   login = async username => {
-    const user = await api.getUser(username);
-    this.setState(() => {
-      return {
-        user: user.username
-      };
-    });
+    try {
+      const user = await api.getUser(username);
+      this.setState(() => {
+        return {
+          user: user.username,
+          loginFailed:false
+        };
+      });
+
+    } catch (err) {
+      this.setState(() => {
+        return {
+          loginFailed:true
+        };
+      });
+    }
   };
   logout = () => {
     this.setState(() => {
